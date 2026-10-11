@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Career Switch Readiness & Action Planner</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#1f2937}
+header{background:#173b67;color:#fff;padding:28px 20px}header h1{margin:0;font-size:28px}header p{margin:8px 0 0}
+.wrap{max-width:980px;margin:22px auto;padding:0 16px}.card{background:#fff;padding:22px;margin:16px 0;border-radius:12px;box-shadow:0 2px 10px #0001}
+h2{color:#173b67;margin-top:0}h3{color:#244d78}label{font-weight:bold;display:block;margin:12px 0 6px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:7px;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.btn{background:#173b67;color:#fff;border:0;border-radius:7px;padding:12px 18px;cursor:pointer;margin:8px 8px 0 0}
+.btn.secondary{background:#64748b}.hidden{display:none}.score{font-size:40px;font-weight:bold;color:#173b67}
+.bar{height:10px;background:#e2e8f0;border-radius:10px}.bar span{display:block;height:100%;background:#173b67;border-radius:10px;width:0}
+.result{background:#eef5ff;padding:16px;border-left:5px solid #173b67;border-radius:8px}.high{color:#991b1b;font-weight:bold}.medium{color:#92400e;font-weight:bold}.low{color:#166534;font-weight:bold}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e2e8f0;text-align:left}th{background:#f1f5f9}
+.skill-row{display:grid;grid-template-columns:1fr 110px 110px;gap:12px;align-items:end;margin-bottom:12px}
+.small{font-size:13px;color:#64748b}.notice{background:#fff7ed;padding:12px;border-radius:8px;border-left:4px solid #f59e0b}
+@media(max-width:650px){.grid,.skill-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>Career Switch Readiness & Action Planner</h1>
+<p>Know where you stand. Know what to improve. Plan your next step.</p>
+</header>
+<div class="wrap">
+
+<div id="form">
+<div class="card">
+<h2>1. My Current Situation</h2>
+<div class="grid">
+<div><label>Engineering / Education Background</label><select id="background">
+<option value="">-- Select background --</option>
+<option>Automation Engineering</option><option>Instrumentation Engineering</option><option>VLSI / Microelectronics</option><option>Electronics & Communication Engineering (ECE)</option><option>Electrical & Electronics Engineering (EEE)</option><option>Electrical Engineering</option><option>Mechanical Engineering</option><option>Mechatronics Engineering</option><option>Civil Engineering</option><option>Computer Science / IT</option><option>Industrial / Production Engineering</option><option>Chemical Engineering</option><option>Biomedical Engineering</option><option>Other Engineering Background</option><option>Non-Engineering Background</option></select></div>
+<div><label>Current job</label><input id="job" placeholder="Example: Maintenance Associate"></div>
+<div><label>Experience (years)</label><input id="exp" type="number" min="0"></div>
+<div><label>Monthly income (₹)</label><input id="income" type="number" min="0"></div>
+<div><label>Monthly essential expenses (₹)</label><input id="expense" type="number" min="0"></div>
+<div><label>Current savings (₹)</label><input id="savings" type="number" min="0"></div>
+<div><label>Family/dependent responsibility</label><select id="family"><option value="1">High</option><option value="2" selected>Medium</option><option value="3">Low</option></select></div>
+<div><label>Need to stay in hometown?</label><select id="hometown"><option value="1">Yes</option><option value="2">Not sure</option><option value="3">No</option></select></div>
+</div>
+</div>
+
+<div class="card">
+<h2>2. My Target Career</h2>
+<label>Choose your target career</label>
+<select id="career" onchange="loadSkills()">
+<option value="">-- Select a career --</option>
+<option value="Data Analyst">Data Analyst</option>
+<option value="Software Developer">Software Developer</option>
+<option value="Business Analyst">Business Analyst</option>
+<option value="Digital Marketing">Digital Marketing</option>
+<option value="UI/UX Designer">UI/UX Designer</option>
+<option value="Supply Chain Management">Supply Chain Management</option>
+<option value="Project Management">Project Management</option>
+<option value="Finance">Finance / Financial Analyst</option>
+<option value="HR">Human Resources</option>
+<option value="Automation Engineer">Automation Engineer</option>
+<option value="Instrumentation Engineer">Instrumentation Engineer</option>
+<option value="VLSI Design Engineer">VLSI Design Engineer</option>
+<option value="Embedded Systems Engineer">Embedded Systems Engineer</option>
+<option value="Electronics Engineer">Electronics Engineer</option>
+<option value="Electrical Engineer">Electrical Engineer</option>
+<option value="Mechanical Engineer">Mechanical Engineer</option>
+<option value="Mechatronics Engineer">Mechatronics Engineer</option>
+<option value="Civil Engineer">Civil Engineer</option>
+<option value="Industrial / Production Engineer">Industrial / Production Engineer</option>
+<option value="Other">Other career</option>
+</select>
+<div id="otherBox" class="hidden">
+<label>Enter your target career</label><input id="otherCareer" placeholder="Example: Government Job">
+</div>
+<label>Why do you want to switch?</label><input id="reason" placeholder="Example: Better growth, interest, salary, work-life balance">
+<label>Career clarity (1–5)</label><select id="clarity"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select>
+</div>
+
+<div class="card">
+<h2>3. My Career-Specific Skill Assessment</h2>
+<p class="small">The skills below change according to the career you select. Required levels are prototype benchmarks for testing, not research findings.</p>
+<div id="skills"><div class="notice">Select a target career above to see the relevant skills.</div></div>
+</div>
+
+<div class="card">
+<h2>4. Support & Preparation</h2>
+<label>Do you have someone who can guide you?</label>
+<select id="support"><option value="1">No</option><option value="2">Some support</option><option value="3">Yes</option></select>
+<label>Have you started preparing?</label>
+<select id="prep"><option value="1">Not yet</option><option value="2">Started</option><option value="3">Yes, regularly</option></select>
+<label>Have you researched jobs/opportunities in the target career?</label>
+<select id="research"><option value="1">No</option><option value="2">A little</option><option value="3">Yes</option></select>
+<button class="btn" onclick="calculate()">Check My Readiness</button>
+</div>
+</div>
+
+<div id="output" class="hidden">
+<div class="card">
+<h2>Your Result</h2><div class="score" id="score"></div><h3 id="status"></h3>
+<div class="bar"><span id="bar"></span></div><p id="summary"></p>
+</div>
+
+<div class="card"><h2>Your Main Gaps</h2><div id="gaps"></div></div>
+<div class="card"><h2>What You Should Do Next</h2><div id="actions"></div></div>
+
+<div class="card">
+<h2>Your 30 / 60 / 90 Day Plan</h2>
+<h3>First 30 Days — Build</h3><ul id="d30"></ul>
+<h3>31–60 Days — Practice</h3><ul id="d60"></ul>
+<h3>61–90 Days — Prepare to Switch</h3><ul id="d90"></ul>
+</div>
+
+<div class="card">
+<h2>Prototype Testing Feedback</h2>
+<p>Use this section only after a real person tests the prototype. Do not create fake feedback.</p>
+<ol>
+<li>Was it easy to understand?</li><li>Which part was most useful?</li>
+<li>Which question was confusing?</li><li>Did the result tell you what to improve?</li>
+<li>Would you use this before changing careers?</li><li>What should be added or changed?</li>
+</ol>
+<textarea id="feedback" rows="5" placeholder="Enter real tester feedback here..."></textarea>
+<button class="btn" onclick="saveFeedback()">Save Feedback</button>
+<button class="btn secondary" onclick="location.reload()">Test Again</button>
+</div>
+</div>
+</div>
+
+<script>
+const profiles={
+"Data Analyst": [["Excel",4],["SQL",4],["Data Visualization",4],["Statistics",3],["Python",3]],
+"Software Developer": [["Programming",4],["Data Structures",4],["Database",3],["Git/GitHub",3],["Problem Solving",4]],
+"Business Analyst": [["Requirement Gathering",4],["Communication",4],["Business Analysis",4],["BPMN/Process Mapping",3],["Excel/Data Analysis",3]],
+"Digital Marketing": [["SEO",4],["Social Media Marketing",4],["Content Marketing",4],["Analytics",3],["Communication",4]],
+"UI/UX Designer": [["UI Design",4],["UX Research",4],["Wireframing",4],["Figma",4],["Communication",3]],
+"Supply Chain Management": [["Inventory Management",4],["Procurement",4],["Logistics",4],["Excel/Data Analysis",3],["Communication",3]],
+"Project Management": [["Planning",4],["Communication",4],["Risk Management",3],["Stakeholder Management",4],["Project Tools",3]],
+"Finance": [["Financial Analysis",4],["Excel",4],["Accounting Basics",4],["Financial Modelling",3],["Communication",3]],
+"HR": [["Recruitment",4],["Communication",4],["Employee Relations",4],["HR Analytics",3],["Labour/HR Basics",3]],
+"Automation Engineer": [["PLC Programming",4],["SCADA",4],["Industrial Automation",4],["Sensors & Actuators",3],["Control Systems",4]],
+"Instrumentation Engineer": [["Process Instrumentation",4],["Sensors & Transmitters",4],["Control Systems",4],["Calibration",3],["PLC/SCADA",3]],
+"VLSI Design Engineer": [["Digital Electronics",4],["Verilog/SystemVerilog",4],["RTL Design",4],["ASIC/FPGA Concepts",3],["Semiconductor Basics",3]],
+"Embedded Systems Engineer": [["C/C++",4],["Microcontrollers",4],["Embedded Systems",4],["Communication Protocols",3],["Debugging",4]],
+"Electronics Engineer": [["Digital Electronics",4],["Analog Electronics",4],["PCB Design",3],["Microcontrollers",3],["Testing & Debugging",4]],
+"Electrical Engineer": [["Electrical Machines",4],["Power Systems",4],["Electrical Measurements",3],["Control Systems",3],["Safety Standards",3]],
+"Mechanical Engineer": [["Engineering Design",4],["CAD",4],["Manufacturing Processes",4],["Materials",3],["Problem Solving",4]],
+"Mechatronics Engineer": [["PLC Programming",4],["Robotics",4],["Sensors & Actuators",4],["CAD",3],["Control Systems",4]],
+"Civil Engineer": [["Structural Basics",4],["AutoCAD",4],["Construction Management",4],["Quantity Estimation",3],["Site Safety",3]],
+"Industrial / Production Engineer": [["Production Planning",4],["Lean Manufacturing",4],["Quality Management",4],["Operations Management",3],["Excel/Data Analysis",3]]
+};
+let activeProfile=[];
+function loadSkills(){
+ const c=document.getElementById("career").value;
+ document.getElementById("otherBox").classList.toggle("hidden",c!=="Other");
+ if(!c){document.getElementById("skills").innerHTML='<div class="notice">Select a target career above to see the relevant skills.</div>';return;}
+ if(c==="Other"){document.getElementById("skills").innerHTML='<div class="notice">For a custom career, enter the career name. Add the 5 most important skills for that career below.</div>'+[1,2,3,4,5].map((i)=>`<div class="skill-row"><div><label>Skill ${i}</label><input id="customName${i}" placeholder="Enter required skill"></div><div><label>Required</label><select id="customReq${i}">${[1,2,3,4,5].map(x=>`<option ${x==4?'selected':''}>${x}</option>`).join("")}</select></div><div><label>Current</label><select id="customCur${i}">${[1,2,3,4,5].map(x=>`<option>${x}</option>`).join("")}</select></div></div>`).join("");return;}
+ activeProfile=profiles[c];
+ document.getElementById("skills").innerHTML=activeProfile.map((x,i)=>`<div class="skill-row"><div><label>${x[0]}</label></div><div><label>Required</label><input value="${x[1]}" disabled></div><div><label>Current</label><select id="s${i}">${[1,2,3,4,5].map(v=>`<option>${v}</option>`).join("")}</select></div></div>`).join("");
+}
+function getCareer(){
+ let c=document.getElementById("career").value;
+ return c==="Other"?(document.getElementById("otherCareer").value.trim()||"your target career"):c;
+}
+function calculate(){
+ const career=getCareer();
+ if(!document.getElementById("career").value){alert("Please select a target career first.");return;}
+ let skills=[];
+ if(document.getElementById("career").value==="Other"){
+   for(let i=1;i<=5;i++){let n=document.getElementById("customName"+i).value.trim();if(n){skills.push([n,+document.getElementById("customReq"+i).value,+document.getElementById("customCur"+i).value]);}}
+ }else{
+   skills=activeProfile.map((x,i)=>[x[0],x[1],+document.getElementById("s"+i).value]);
+ }
+ if(!skills.length){alert("Please enter at least one target skill.");return;}
+ let gaps=skills.map(x=>{let g=x[1]-x[2];return [x[0],g,g>=2?"High":g===1?"Medium":"Low"]});
+ let skillScore=skills.reduce((a,x)=>a+Math.min(x[2]/x[1],1),0)/skills.length;
+ let inc=+document.getElementById("income").value||0, ex=+document.getElementById("expense").value||0, sv=+document.getElementById("savings").value||0;
+ let months=ex?sv/ex:0;
+ let fin=months>=6?1:months>=3?.7:months>=1?.45:.25;
+ let cl=+document.getElementById("clarity").value, sp=+document.getElementById("support").value, pr=+document.getElementById("prep").value, rs=+document.getElementById("research").value;
+ let score=Math.round((skillScore*.35+(cl/5)*.15+fin*.2+(sp/3)*.1+(pr/3)*.1+(rs/3)*.1)*100);
+ let status=score>=75?"READY TO EXPLORE":score>=50?"PREPARE MORE":"BUILD YOUR FOUNDATION";
+ document.getElementById("score").textContent=score+"%";
+ document.getElementById("status").textContent=status;
+ document.getElementById("bar").style.width=score+"%";
+ document.getElementById("summary").textContent=status==="READY TO EXPLORE"?
+ "You have a good base. Start exploring suitable opportunities while continuing to manage your risks and skill gaps.":
+ "You do not need to quit immediately. Use the gaps below to prepare before making a major career change.";
+ document.getElementById("gaps").innerHTML="<table><tr><th>Skill / Area</th><th>Gap</th><th>Meaning</th></tr>"+gaps.map(g=>`<tr><td>${g[0]}</td><td>${g[1]}</td><td class="${g[2].toLowerCase()}">${g[2]}</td></tr>`).join("")+"</table>";
+ let high=gaps.filter(x=>x[2]=="High").map(x=>x[0]), med=gaps.filter(x=>x[2]=="Medium").map(x=>x[0]), a="<ul>";
+ if(high.length)a+=`<li><b>High skill gaps:</b> Improve ${high.join(", ")}. Use a course, practice and one small project.</li>`;
+ if(med.length)a+=`<li><b>Medium skill gaps:</b> Practise ${med.join(", ")} regularly and track your progress.</li>`;
+ if(fin<.7)a+="<li><b>Reduce financial risk:</b> continue earning while preparing, understand essential expenses and build a safety buffer.</li>";
+ if(cl<4)a+="<li><b>Improve career clarity:</b> research the target role, skills, salary, growth and work conditions.</li>";
+ if(sp<3)a+="<li><b>Find guidance:</b> speak with a senior, mentor or someone already working in the target field.</li>";
+ if(pr<3)a+="<li><b>Start preparation:</b> set a weekly learning plan and complete small tasks instead of trying to learn everything at once.</li>";
+ if(rs<3)a+="<li><b>Research opportunities:</b> review real job descriptions and note repeated skills and requirements.</li>";
+ if(gaps.every(x=>x[2]=="Low"))a+="<li><b>Maintain your strengths:</b> keep practising and start testing your readiness through real opportunities.</li>";
+ a+="</ul>"; document.getElementById("actions").innerHTML=a;
+ let top=high[0]||med[0]||skills[0][0];
+ document.getElementById("d30").innerHTML=`<li>Confirm the target role: ${career}.</li><li>Focus on the main skill gap: ${top}.</li><li>Talk to one experienced person or mentor.</li><li>Review real job descriptions for ${career}.</li>`;
+ document.getElementById("d60").innerHTML=`<li>Complete one practical project using ${top}.</li><li>Improve your resume for ${career}.</li><li>Practise the main target-career skills every week.</li>`;
+ document.getElementById("d90").innerHTML=`<li>Practise interview questions for ${career}.</li><li>Apply for suitable opportunities if financially safe.</li><li>Review your skill gaps and financial readiness again.</li>`;
+ document.getElementById("form").classList.add("hidden");document.getElementById("output").classList.remove("hidden");scrollTo(0,0);
+}
+function saveFeedback(){let f=document.getElementById("feedback").value.trim();if(!f){alert("Enter feedback first.");return;}localStorage.setItem("careerPrototypeFeedback",f);alert("Feedback saved in this browser.");}
+</script>
+</body>
+</html>
